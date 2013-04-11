@@ -8,10 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     @Styles.Render("~/Content/css")
-    
     @{ Html.RenderPartial("_html5shiv"); }
 </head>
 <body>
+    @{ Html.RenderPartial("_Menu"); }
     <div>
         @RenderBody()
     </div>
