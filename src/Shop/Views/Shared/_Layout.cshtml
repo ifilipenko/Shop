@@ -12,10 +12,10 @@
 </head>
 <body>
     @{ Html.RenderPartial("_Menu"); }
-
     <div class="container">
         @RenderBody()
     </div> <!-- /container -->
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 </body>
 </html>
