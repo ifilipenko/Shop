@@ -3,10 +3,10 @@
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Login", new {area = "Security"}, FormMethod.Post, new {@class="navbar-form pull-right"})) {
-        <strong>@User.Identity.Name</strong>
-        <a id="logout" class="btn">
-            <i class="icon-lock" /> Выход
-        </a>
+        <span class="label label-inverse">@User.Identity.Name</span>
+        <button id="logout" type="submit" class="btn btn-info btn-small" title="Выход">
+            <i class="icon-lock"></i>
+        </button>
     }
 }
 else
