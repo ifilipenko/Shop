@@ -6,9 +6,16 @@ namespace Shop.Areas.Security.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Login()
+        private const bool RememberMeByDefault = true;
+
+        [HttpGet]
+        public ActionResult Login(string returnUrl)
         {
-            return View("Login");
+            return View(new LogOnModel
+            {
+                ReturnUrl  = returnUrl,
+                RememberMe = RememberMeByDefault
+            });
         }
 
         public ActionResult CompactLogin()
