@@ -5,8 +5,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    
+    <meta name="description" content="">
+    <meta name="author" content="">
     @Styles.Render("~/Content/css")
+    
+    @{ Html.RenderPartial("_html5shiv"); }
 </head>
 <body>
     <div>

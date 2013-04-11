@@ -10,6 +10,7 @@ namespace Shop
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
+                "~/Content/Site.css",
                 "~/Content/bootstrap-responsive.css"));
 
             bundles.Add(new StyleBundle("~/Content/Admin").Include(
