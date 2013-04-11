@@ -1,11 +1,11 @@
 ﻿@model Shop.Areas.Security.Models.LogOnModel
 
 @{
-    ViewBag.Title = "Вход";
+    ViewBag.Title = "Shop - Вход";
     Layout = "~/Views/Shared/_EmptyLayout.cshtml";
 }
 
-<h1>@ViewBag.Title.</h1>
+<h1>Вход</h1>
 
 @using (Html.BeginForm("LogOn", "Login", new { area = "Security", Model.ReturnUrl }, FormMethod.Post)) {
     @Html.AntiForgeryToken()
