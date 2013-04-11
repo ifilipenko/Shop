@@ -4,9 +4,9 @@
 {
     using (Html.BeginForm("LogOff", "Login", new {area = "Security"}, FormMethod.Post, new {@class="navbar-form pull-right"})) {
         <strong>@User.Identity.Name</strong>
-        <button type="submit" class="btn">
+        <a id="logout" class="btn">
             <i class="icon-lock" /> Выход
-        </button>
+        </a>
     }
 }
 else

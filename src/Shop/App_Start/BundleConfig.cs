@@ -7,6 +7,7 @@ namespace Shop
         public static void RegisterBundles(BundleCollection bundles)
         {
             LibsBundles(bundles);
+            ControllersBundles(bundles);
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
@@ -20,6 +21,12 @@ namespace Shop
                 "~/Content/tags.css"));
             bundles.Add(new StyleBundle("~/Content/tabs-css").Include(
                 "~/Content/tabs.css"));
+        }
+
+        private static void ControllersBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/security").Include(
+                "~/Scripts/Security/Login/LogoutView.js"));
         }
 
         private static void LibsBundles(BundleCollection bundles)
