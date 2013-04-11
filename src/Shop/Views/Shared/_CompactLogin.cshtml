@@ -1,4 +1,4 @@
-﻿@using (Html.BeginForm("LogOn", "Login", new { area = "Security" }, FormMethod.Post)) {
+﻿@using (Html.BeginForm("LogOn", "Login", new {area = "Security"}, FormMethod.Post, new {@class="navbar-form pull-right"})) {
     <input class="span2" type="text" placeholder="Имя пользователя/Email">
     <input class="span2" type="password" placeholder="Пароль">
     <button type="submit" class="btn">Вход</button>
