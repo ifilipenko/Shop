@@ -21,7 +21,7 @@
                     </li>
                 </ul>
 
-                @{ Html.RenderPartial("_CompactLogin"); }
+                @{ Html.RenderAction("CompactLogin", "Login", new {area="Security"}); }
             </div><!--/.nav-collapse -->
         </div>
     </div>
