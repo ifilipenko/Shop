@@ -5,11 +5,7 @@
     Layout = "~/Views/Shared/_EmptyLayout.cshtml";
 }
 
-<h2>Введите пожалуйста имя пользователя и пароль</h2>
-
-<hgroup>
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<h1>@ViewBag.Title.</h1>
 
 @using (Html.BeginForm("LogOn", "Login", new { area = "Security", Model.ReturnUrl }, FormMethod.Post)) {
     @Html.AntiForgeryToken()
