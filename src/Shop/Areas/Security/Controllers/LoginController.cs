@@ -6,6 +6,11 @@ namespace Shop.Areas.Security.Controllers
 {
     public class LoginController : Controller
     {
+        public ActionResult Login()
+        {
+            return View("Login");
+        }
+
         public ActionResult CompactLogin()
         {
             return View("CompactLogin");

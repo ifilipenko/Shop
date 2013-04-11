@@ -25,8 +25,6 @@ namespace Shop
 
         private static void ControllersBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/security").Include(
-                "~/Scripts/Security/Login/LogoutView.js"));
         }
 
         private static void LibsBundles(BundleCollection bundles)
