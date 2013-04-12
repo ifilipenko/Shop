@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using Shop.Services.Security;
 using StructureMap;
 namespace Shop.DependencyResolution {
     public static class IoC {
@@ -25,6 +26,10 @@ namespace Shop.DependencyResolution {
                             x.Scan(scan =>
                                     {
                                         scan.TheCallingAssembly();
+                                        scan.AssemblyContainingType<SecurityServicesRegistry>();
+
+                                        scan.LookForRegistries();
+
                                         scan.WithDefaultConventions();
                                     });
             //                x.For<IExample>().Use<Example>();
