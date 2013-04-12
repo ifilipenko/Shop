@@ -20,8 +20,15 @@ namespace Shop.Areas.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                Membership.CreateUser(model.UserName, model.Password);
-                return RedirectToAction("Index", "Home", new {area = ""});
+                try
+                {
+                    Membership.CreateUser(model.UserName, model.Password);
+                    return RedirectToAction("Index", "Home", new {area = ""});
+                }
+                catch (MembershipCreateUserException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
             return View(model);
         }
