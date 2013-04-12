@@ -190,8 +190,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shop.Membership\Shop.Providers.csproj">
-      <Project>{76a75ce9-027e-4261-9c03-131fc0d81c13}</Project>
+    <ProjectReference Include="..\Shop.Providers\Shop.Providers.csproj">
+      <Project>{4863571d-7885-4f84-b13f-5f17cff7c697}</Project>
       <Name>Shop.Providers</Name>
     </ProjectReference>
   </ItemGroup>
