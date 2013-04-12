@@ -18,8 +18,12 @@ namespace Shop.Areas.Security.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            Membership.CreateUser(model.UserName, model.Password);
-            return RedirectToAction("Index", "Home", new {area = ""});
+            if (ModelState.IsValid)
+            {
+                Membership.CreateUser(model.UserName, model.Password);
+                return RedirectToAction("Index", "Home", new {area = ""});
+            }
+            return View(model);
         }
     }
 }
