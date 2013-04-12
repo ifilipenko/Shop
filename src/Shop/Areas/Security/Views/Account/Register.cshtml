@@ -11,7 +11,7 @@
 
     <fieldset>
         <legend>Введите инфомацию о новой учетной записи</legend>
-        <ol>
+        <ul class="unstyled">
             <li>
                 @Html.LabelFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.UserName)
@@ -24,7 +24,7 @@
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
-        </ol>
+        </ul>
         <input type="submit" value="Создать нового пользователя" />
     </fieldset>
 }
