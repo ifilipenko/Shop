@@ -26,8 +26,13 @@ namespace Shop.Areas.Security.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model)
         {
-            FormsAuthentication.SetAuthCookie(model.Username, false);
-            return RedirectToAction("Index", "Home", new {area = ""});
+            if (ModelState.IsValid)
+            {
+                FormsAuthentication.SetAuthCookie(model.Username, false);
+                return RedirectToAction("Index", "Home", new {area = ""});
+            }
+
+            return View("Login", model);
         }
 
         [HttpPost]
