@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Security.Authentication;
+using System.Web.Mvc;
 using System.Web.Security;
 using Shop.Areas.Security.Models;
 using Shop.Services.Security;
@@ -35,8 +37,15 @@ namespace Shop.Areas.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                _authenticationService.SignIn(model.Username, model.RememberMe);
-                return RedirectToAction("Index", "Home", new {area = ""});
+                try
+                {
+                    _authenticationService.SignIn(model.Username, model.Password, model.RememberMe);
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                catch (AuthenticationException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             return View("Login", model);

@@ -2,6 +2,6 @@
 {
     public interface IAuthenticationService
     {
-        void SignIn(string username, bool rememberMe);
+        void SignIn(string username, string password, bool rememberMe);
     }
 }
