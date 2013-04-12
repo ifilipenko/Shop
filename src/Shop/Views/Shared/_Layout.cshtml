@@ -15,7 +15,9 @@
     <div class="container">
         @RenderBody()
     </div> <!-- /container -->
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
 </body>
 </html>
