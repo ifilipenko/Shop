@@ -9,11 +9,10 @@ namespace Shop.Areas.Security.Controllers
         private const bool RememberMeByDefault = true;
 
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
             return View(new LogOnModel
             {
-                ReturnUrl  = returnUrl,
                 RememberMe = RememberMeByDefault
             });
         }

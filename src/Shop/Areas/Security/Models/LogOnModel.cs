@@ -4,8 +4,7 @@ namespace Shop.Areas.Security.Models
 {
     public class LogOnModel
     {
-        [Required]
-        [Display(Name = "Имя пользователя")]
+        [Required, Display(Name = "Имя пользователя")]
         public string Username { get; set; }
 
         [Required]
@@ -15,7 +14,5 @@ namespace Shop.Areas.Security.Models
         [Required]
         [Display(Name = "Запомнить меня?")]
         public bool RememberMe { get; set; }
-
-        public string ReturnUrl { get; set; }
     }
 }
