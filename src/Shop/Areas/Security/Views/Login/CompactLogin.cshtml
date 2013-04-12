@@ -9,11 +9,10 @@
         </button>
     }
 }
-else
-{
+else {
     using (Html.BeginForm("LogOn", "Login", new {area = "Security"}, FormMethod.Post, new {@class="navbar-form pull-right"})) {
-        <input class="span2" name="Username" type="text" placeholder="Имя пользователя/Email">
-        <input class="span2" name="Password" type="password" placeholder="Пароль">
+        <input class="span2" name="Username" type="text" placeholder="Имя пользователя/Email" />
+        <input class="span2" name="Password" type="password" placeholder="Пароль" />
         <button type="submit" class="btn">Вход</button>
     }
 }
