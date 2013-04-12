@@ -8,5 +8,6 @@ namespace Shop.Services.Security
 {
     public interface IAccountService
     {
+        void RegisterNewUser(string userName, string password);
     }
 }
