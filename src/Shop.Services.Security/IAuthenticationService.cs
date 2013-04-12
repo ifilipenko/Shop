@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Services.Security
 {
-    public interface IAuthenticationServices
+    public interface IAuthenticationService
     {
     }
 }
