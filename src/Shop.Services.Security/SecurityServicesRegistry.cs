@@ -6,7 +6,11 @@ namespace Shop.Services.Security
     {
         public SecurityServicesRegistry()
         {
-            For<IAccountService>().Use<AccountService>();
+            Scan(scan =>
+                {
+                    scan.TheCallingAssembly();
+                    scan.WithDefaultConventions();
+                });
         }
     }
 }

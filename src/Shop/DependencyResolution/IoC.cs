@@ -29,8 +29,6 @@ namespace Shop.DependencyResolution {
                                         scan.AssemblyContainingType<SecurityServicesRegistry>();
 
                                         scan.LookForRegistries();
-
-                                        scan.WithDefaultConventions();
                                     });
             //                x.For<IExample>().Use<Example>();
                         });
