@@ -5,3 +5,12 @@
 .field-validation-error {
     color: red;
 }
+
+.validation-summary-errors {
+    color: red;
+}
+
+.validation-summary-errors ul {
+    margin-left: 0;
+    list-style: none;
+}
