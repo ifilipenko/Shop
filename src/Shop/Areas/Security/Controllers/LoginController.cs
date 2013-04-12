@@ -17,17 +17,20 @@ namespace Shop.Areas.Security.Controllers
             });
         }
 
+        [HttpGet]
         public ActionResult CompactLogin()
         {
             return View("CompactLogin");
         }
 
+        [HttpPost]
         public ActionResult LogOn(LogOnModel model)
         {
             FormsAuthentication.SetAuthCookie(model.Username, false);
             return RedirectToAction("Index", "Home", new {area = ""});
         }
 
+        [HttpPost]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
