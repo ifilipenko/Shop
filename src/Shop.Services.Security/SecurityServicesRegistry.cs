@@ -6,7 +6,7 @@ namespace Shop.Services.Security
     {
         public SecurityServicesRegistry()
         {
-            For<IAuthenticationService>().Use<AuthenticationService>();
+            For<IAccountService>().Use<AccountService>();
         }
     }
 }
