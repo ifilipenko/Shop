@@ -1,12 +1,19 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using Shop.Areas.Security.Models;
+using Shop.Services.Security;
 
 namespace Shop.Areas.Security.Controllers
 {
     public class LoginController : Controller
     {
         private const bool RememberMeByDefault = true;
+        private readonly IAuthenticationService _authenticationService;
+
+        public LoginController(IAuthenticationService authenticationService)
+        {
+            _authenticationService = authenticationService;
+        }
 
         [HttpGet]
         public ActionResult Login()
@@ -28,7 +35,7 @@ namespace Shop.Areas.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(model.Username, false);
+                _authenticationService.SignIn(model.Username, model.RememberMe);
                 return RedirectToAction("Index", "Home", new {area = ""});
             }
 
