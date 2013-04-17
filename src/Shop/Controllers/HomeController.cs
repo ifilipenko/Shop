@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Shop
+namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
