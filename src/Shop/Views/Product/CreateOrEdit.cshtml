@@ -1,0 +1,49 @@
+﻿@model Shop.Models.EditProduct
+
+@{
+    ViewBag.Title = Model.IsEditMode ? "Редактирование товара" : "Новый товар";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.notice as string)) {
+    <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @ViewBag.notice!
+    </div>
+}
+
+@using (Html.BeginForm("Save", "Product", new { area = "" }, FormMethod.Post)) {
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.Id)
+    <fieldset>
+        <legend>Введите данные товара</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Category)
+                @Html.TextBoxFor(m => m.Category)
+                @Html.ValidationMessageFor(m => m.Category)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Vendor)
+                @Html.TextBoxFor(m => m.Vendor)
+                @Html.ValidationMessageFor(m => m.Vendor)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </li>
+        </ul>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="icon-ok"></i> Сохранить
+        </button>
+    </fieldset>
+}
