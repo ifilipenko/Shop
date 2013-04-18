@@ -58,6 +58,8 @@ namespace Shop.Tests
         [Test]
         public void Edit_should_show_edit_product_view()
         {
+            _productService.FindById(1).Returns(new Product());
+
             var actionResult = _productController.Edit(1);
 
             actionResult.Should().BeOfType<ViewResult>();
