@@ -188,7 +188,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_html5shiv.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Areas\Security\Views\Login\CompactLogin.cshtml" />
+    <Content Include="Areas\Security\Views\Login\_CompactLogin.cshtml" />
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
     <Content Include="Views\Product\CreateOrEdit.cshtml" />
   </ItemGroup>

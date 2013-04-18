@@ -21,7 +21,7 @@
                     </li>
                 </ul>
 
-                @{ Html.RenderAction("CompactLogin", "Login", new {area="Security"}); }
+                @{ Html.RenderPartial("~/Areas/Security/Views/Login/_CompactLogin.cshtml", new ViewDataDictionary()); }
             </div><!--/.nav-collapse -->
         </div>
     </div>

@@ -29,7 +29,7 @@ namespace Shop.Areas.Security.Controllers
         [HttpGet]
         public ActionResult CompactLogin()
         {
-            return View("CompactLogin");
+            return View("_CompactLogin");
         }
 
         [HttpPost]

@@ -31,19 +31,19 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Save(EditProduct model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("CreateOrEdit", model);
             }
 
             if (model.IsEditMode)
             {
-                ViewBag.notice = "Товар успешно изменен";
-                return RedirectToAction("Edit", "Product", model.Id);
+                TempData["notice"] = "Товар успешно изменен";
+                return RedirectToAction("Edit", "Product", new {id = model.Id});
             }
 
             TempData["notice"] = "Товар успешно создан";
-            return RedirectToAction("Edit", "Product", ++_lastProductId);
+            return RedirectToAction("Edit", "Product", new {id = ++_lastProductId});
         }
     }
 }
