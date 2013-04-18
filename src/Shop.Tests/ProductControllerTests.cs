@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
@@ -68,6 +69,22 @@ namespace Shop.Tests
 
             _productController.TempData.Should().ContainKey("notice");
             _productController.TempData["notice"].Should().NotBeNull();
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Save_should_show_error_message_when_product_saving_failed(int id)
+        {
+            _productService.WhenForAnyArgs(x => x.SaveProduct(null))
+                           .Do(x => { throw new Exception("Some error"); });
+            var model = new EditProduct {Id = id};
+
+            var actionResult = _productController.Save(model);
+
+            _productController.ModelState.IsValid.Should().BeFalse();
+            actionResult.Should().BeOfType<ViewResult>();
+            actionResult.As<ViewResult>().Model.Should().BeSameAs(model);
+            actionResult.As<ViewResult>().ViewName.Should().Be("CreateOrEdit");
         }
     }
 }

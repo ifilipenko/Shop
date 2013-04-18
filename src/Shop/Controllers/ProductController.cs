@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Shop.Models;
 using Shop.Services.Domain;
 using Shop.Services.Domain.Commands;
@@ -38,26 +39,28 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Save(EditProduct model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View("CreateOrEdit", model);
-            }
-
-            if (model.IsEditMode)
-            {
-                TempData["notice"] = "Товар успешно изменен";
-            }
-
-            var id = _productService.SaveProduct(new ProductSaveCommand
+                if (ModelState.IsValid)
                 {
-                    Id          = model.Id,
-                    Name        = model.Name,
-                    Category    = model.Category,
-                    Description = model.Description,
-                    Vendor      = model.Vendor
-                });
-            TempData["notice"] = "Товар успешно создан";
-            return RedirectToAction("Edit", "Product", new {id = id});
+                    TempData["notice"] = model.IsEditMode ? "Товар успешно изменен" : "Товар успешно создан";
+                    var id = _productService.SaveProduct(new ProductSaveCommand
+                    {
+                        Id          = model.Id,
+                        Name        = model.Name,
+                        Category    = model.Category,
+                        Description = model.Description,
+                        Vendor      = model.Vendor
+                    });
+                    return RedirectToAction("Edit", "Product", new { id });
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            return View("CreateOrEdit", model);
         }
     }
 }
