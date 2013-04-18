@@ -1,11 +1,18 @@
 ﻿using System.Web.Mvc;
 using Shop.Models;
+using Shop.Services.Domain;
+using Shop.Services.Domain.Commands;
 
 namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        private static int _lastProductId;
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
+        {
+            _productService = productService;
+        }
 
         [HttpGet]
         public ActionResult Create()
@@ -39,11 +46,18 @@ namespace Shop.Controllers
             if (model.IsEditMode)
             {
                 TempData["notice"] = "Товар успешно изменен";
-                return RedirectToAction("Edit", "Product", new {id = model.Id});
             }
 
+            var id = _productService.SaveProduct(new ProductSaveCommand
+                {
+                    Id          = model.Id,
+                    Name        = model.Name,
+                    Category    = model.Category,
+                    Description = model.Description,
+                    Vendor      = model.Vendor
+                });
             TempData["notice"] = "Товар успешно создан";
-            return RedirectToAction("Edit", "Product", new {id = ++_lastProductId});
+            return RedirectToAction("Edit", "Product", new {id = id});
         }
     }
 }

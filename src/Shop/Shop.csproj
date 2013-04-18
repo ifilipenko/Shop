@@ -206,6 +206,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Shop.Services.Domain\Shop.Services.Domain.csproj">
+      <Project>{2EE90E93-1038-483C-A484-3DB44C79CB61}</Project>
+      <Name>Shop.Services.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shop.Services.Security\Shop.Services.Security.csproj">
       <Project>{898725A4-9CB6-47A9-AF3F-F8F25562F2A4}</Project>
       <Name>Shop.Services.Security</Name>

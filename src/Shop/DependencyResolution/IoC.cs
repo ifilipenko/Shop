@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using Shop.Services.Domain;
 using Shop.Services.Security;
 using StructureMap;
 namespace Shop.DependencyResolution {
@@ -27,6 +28,7 @@ namespace Shop.DependencyResolution {
                                     {
                                         scan.TheCallingAssembly();
                                         scan.AssemblyContainingType<SecurityServicesRegistry>();
+                                        scan.AssemblyContainingType<DomainServicesRegistry>();
 
                                         scan.LookForRegistries();
                                     });
