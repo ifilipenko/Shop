@@ -7,6 +7,7 @@ using Shop.Controllers;
 using Shop.Models;
 using Shop.Services.Domain;
 using Shop.Services.Domain.Commands;
+using Shop.Services.Domain.Dto;
 
 namespace Shop.Tests
 {
@@ -21,6 +22,46 @@ namespace Shop.Tests
         {
             _productService = Substitute.For<IProductService>();
             _productController = new ProductController(_productService);
+        }
+
+        [Test]
+        public void Create_should_show_create_product_view()
+        {
+            var actionResult = _productController.Create();
+
+            actionResult.Should().BeOfType<ViewResult>();
+            actionResult.As<ViewResult>().ViewName.Should().Be("CreateOrEdit");
+        }
+
+        [Test]
+        public void Edit_should_show_product_with_given_id()
+        {
+            _productService.FindById(1).Returns(new Product());
+
+            var actionResult = _productController.Edit(1);
+
+            actionResult.Should().BeOfType<ViewResult>();
+            actionResult.As<ViewResult>().ViewName.Should().Be("CreateOrEdit");
+            actionResult.As<ViewResult>().Model.Should().BeOfType<EditProduct>();
+        }
+
+        [Test]
+        public void Edit_should_return_not_found_when_product_with_given_id_is_not_exists()
+        {
+            _productService.FindById(1).Returns((Product) null);
+
+            var actionResult = _productController.Edit(1);
+
+            actionResult.Should().BeOfType<HttpNotFoundResult>();
+        }
+
+        [Test]
+        public void Edit_should_show_edit_product_view()
+        {
+            var actionResult = _productController.Edit(1);
+
+            actionResult.Should().BeOfType<ViewResult>();
+            actionResult.As<ViewResult>().ViewName.Should().Be("CreateOrEdit");
         }
 
         [TestCase(0)]

@@ -1,4 +1,5 @@
 ﻿using Shop.Services.Domain.Commands;
+using Shop.Services.Domain.Dto;
 
 namespace Shop.Services.Domain
 {
@@ -12,6 +13,11 @@ namespace Shop.Services.Domain
         public int SaveProduct(ProductSaveCommand command)
         {
             return 0;
+        }
+
+        public Product FindById(int id)
+        {
+            return null;
         }
     }
 }

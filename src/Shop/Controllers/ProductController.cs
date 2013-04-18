@@ -24,6 +24,12 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            var product = _productService.FindById(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
             ViewBag.notice = TempData["notice"];
             var model = new EditProduct
                 {

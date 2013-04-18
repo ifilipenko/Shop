@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Product.cs" />
     <Compile Include="IProductService.cs" />
     <Compile Include="Commands\ProductSaveCommand.cs" />
     <Compile Include="ProductService.cs" />
