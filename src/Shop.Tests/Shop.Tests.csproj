@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ControllersTests\ProductControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServicesTests\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,6 +80,9 @@
       <Project>{02FDFDC6-948C-49B5-A6A1-AD21D4094855}</Project>
       <Name>Shop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServicesTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -50,6 +50,7 @@
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityServicesRegistry.cs" />
+    <Compile Include="Settings\ApplicationSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
