@@ -9,7 +9,7 @@ using Shop.Services.Domain;
 using Shop.Services.Domain.Commands;
 using Shop.Services.Domain.Dto;
 
-namespace Shop.Tests
+namespace Shop.Tests.ControllersTests
 {
     [TestFixture]
     public class ProductControllerTests

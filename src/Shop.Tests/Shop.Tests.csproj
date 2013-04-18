@@ -65,8 +65,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ProductControllerTests.cs" />
+    <Compile Include="ControllersTests\ProductControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesTests\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
