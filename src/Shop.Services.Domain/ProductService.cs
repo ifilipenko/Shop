@@ -41,7 +41,6 @@ namespace Shop.Services.Domain
                     return Convert.ToInt32(id);
                 }
             }
-            return 0;
         }
 
         /// <summary>
