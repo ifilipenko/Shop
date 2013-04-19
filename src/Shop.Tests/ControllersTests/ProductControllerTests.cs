@@ -87,7 +87,7 @@ namespace Shop.Tests.ControllersTests
             model.Category.Should().Be(category);
             model.Name.Should().Be(name);
             model.Description.Should().Be(description);
-            model.Description.Should().Be(vendorrr);
+            model.Vendor.Should().Be(vendorrr);
         }
 
         [TestCase(0)]
