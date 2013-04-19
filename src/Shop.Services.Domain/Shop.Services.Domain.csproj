@@ -56,6 +56,14 @@
     <Compile Include="Migrations\201304191630408_CreateProductsTable.Designer.cs">
       <DependentUpon>201304191630408_CreateProductsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304191635453_SetRequiredFiledsFotProducts.cs" />
+    <Compile Include="Migrations\201304191635453_SetRequiredFiledsFotProducts.Designer.cs">
+      <DependentUpon>201304191635453_SetRequiredFiledsFotProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304191636559_AllowNullDescriptionInProducts.cs" />
+    <Compile Include="Migrations\201304191636559_AllowNullDescriptionInProducts.Designer.cs">
+      <DependentUpon>201304191636559_AllowNullDescriptionInProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="IProductRepository.cs" />
@@ -72,6 +80,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201304191630408_CreateProductsTable.resx">
       <DependentUpon>201304191630408_CreateProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304191635453_SetRequiredFiledsFotProducts.resx">
+      <DependentUpon>201304191635453_SetRequiredFiledsFotProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304191636559_AllowNullDescriptionInProducts.resx">
+      <DependentUpon>201304191636559_AllowNullDescriptionInProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
