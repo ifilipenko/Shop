@@ -16,9 +16,11 @@
 @using (Html.BeginForm("Save", "Product", new { area = "" }, FormMethod.Post)) {
     @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(m => m.Id)
     <fieldset>
         <legend>Введите данные товара</legend>
+        
+        @Html.HiddenFor(m => m.Id)
+
         <ul class="unstyled">
             <li>
                 @Html.LabelFor(m => m.Name)
