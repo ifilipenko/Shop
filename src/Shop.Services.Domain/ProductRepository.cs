@@ -64,9 +64,7 @@ namespace Shop.Services.Domain
                 sqlCommand.Parameters.AddWithValue("@Vendor", productUpdates.Vendor);
                 sqlCommand.Parameters.AddWithValue("@Description", productUpdates.Description);
 
-                var id = sqlCommand.ExecuteScalar();
-
-                productUpdates.Id = Convert.ToInt32(id);
+                sqlCommand.ExecuteNonQuery();
             }
         }
 
