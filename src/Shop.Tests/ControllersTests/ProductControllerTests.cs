@@ -6,7 +6,6 @@ using NUnit.Framework;
 using Shop.Controllers;
 using Shop.Models;
 using Shop.Services.Domain;
-using Shop.Services.Domain.Commands;
 using Shop.Services.Domain.Dto;
 
 namespace Shop.Tests.ControllersTests
@@ -72,14 +71,14 @@ namespace Shop.Tests.ControllersTests
         {
             _productController.Save(new EditProduct {Id = id});
 
-            _productRepository.Received(1).Save(Arg.Is<ProductSaveCommand>(x => x.Id == id));
+            _productRepository.Received(1).Save(Arg.Is<Product>(x => x.Id == id));
         }
 
         [TestCase(0, 1)]
         [TestCase(1, 1)]
         public void Save_should_redirect_to_edit_when_save_exists_product(int id, int returnedId)
         {
-            _productRepository.Save(Arg.Any<ProductSaveCommand>()).Returns(returnedId);
+            _productRepository.Save(Arg.Any<Product>()).Returns(returnedId);
 
             var actionResult = _productController.Save(new EditProduct { Id = id });
 

@@ -56,8 +56,7 @@ namespace Shop.Services.Domain
         {
             using (var sqlCommand = connection.CreateCommand())
             {
-                sqlCommand.CommandText =
-                    "UPDATE [dbo].[Products] SET Name = @Name, Category = @Category, Vendor = @Vendor, Description = @Description WHERE Id = @Id";
+                sqlCommand.CommandText = "UPDATE [dbo].[Products] SET Name = @Name, Category = @Category, Vendor = @Vendor, Description = @Description WHERE Id = @Id";
                 sqlCommand.CommandType = CommandType.Text;
 
                 sqlCommand.Parameters.AddWithValue("@Id", existsProduct.Id);
