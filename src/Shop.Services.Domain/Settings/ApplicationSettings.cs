@@ -2,6 +2,11 @@
 {
     public class ApplicationSettings
     {
-        public string ConnectionStringName { get; set; }
+        public ApplicationSettings(string connectionStringName)
+        {
+            ConnectionStringName = connectionStringName;
+        }
+
+        public string ConnectionStringName { get; private set; }
     }
 }
