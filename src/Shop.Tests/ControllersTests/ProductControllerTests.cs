@@ -78,7 +78,7 @@ namespace Shop.Tests.ControllersTests
         [TestCase(1, 1)]
         public void Save_should_redirect_to_edit_when_save_exists_product(int id, int returnedId)
         {
-            _productRepository.Save(Arg.Any<Product>()).Returns(returnedId);
+            _productRepository.Save(Arg.Do<Product>(x => x.Id = returnedId));
 
             var actionResult = _productController.Save(new EditProduct { Id = id });
 
@@ -118,7 +118,7 @@ namespace Shop.Tests.ControllersTests
         public void Save_should_show_error_message_when_product_saving_failed(int id)
         {
             _productRepository.WhenForAnyArgs(x => x.Save(null))
-                           .Do(x => { throw new Exception("Some error"); });
+                              .Do(x => { throw new Exception("Some error"); });
             var model = new EditProduct {Id = id};
 
             var actionResult = _productController.Save(model);

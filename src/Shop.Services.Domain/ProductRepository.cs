@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using Shop.Services.Domain.Commands;
 using Shop.Services.Domain.Dto;
 using Shop.Services.Domain.Settings;
 

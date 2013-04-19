@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Shop.Models;
 using Shop.Services.Domain;
-using Shop.Services.Domain.Commands;
+using Shop.Services.Domain.Dto;
 
 namespace Shop.Controllers
 {
@@ -50,15 +50,16 @@ namespace Shop.Controllers
                 if (ModelState.IsValid)
                 {
                     TempData["notice"] = model.IsEditMode ? "Товар успешно изменен" : "Товар успешно создан";
-                    var id = _productRepository.Save(new ProductSaveCommand
-                    {
-                        Id          = model.Id,
-                        Name        = model.Name,
-                        Category    = model.Category,
-                        Description = model.Description,
-                        Vendor      = model.Vendor
-                    });
-                    return RedirectToAction("Edit", "Product", new { id });
+                    var product = new Product
+                        {
+                            Id = model.Id,
+                            Name = model.Name,
+                            Category = model.Category,
+                            Description = model.Description,
+                            Vendor = model.Vendor
+                        };
+                    _productRepository.Save(product);
+                    return RedirectToAction("Edit", "Product", new {id = product.Id});
                 }
             }
             catch (Exception ex)
