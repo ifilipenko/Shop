@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-using Shop.Services.Domain.Dto;
+using Shop.Services.Domain.Model;
 using Shop.Services.Domain.Settings;
 
 namespace Shop.Services.Domain

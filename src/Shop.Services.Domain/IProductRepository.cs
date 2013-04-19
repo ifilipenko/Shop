@@ -1,4 +1,4 @@
-﻿using Shop.Services.Domain.Dto;
+﻿using Shop.Services.Domain.Model;
 
 namespace Shop.Services.Domain
 {

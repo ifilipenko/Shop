@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Shop.Controllers;
 using Shop.Models;
 using Shop.Services.Domain;
-using Shop.Services.Domain.Dto;
+using Shop.Services.Domain.Model;
 
 namespace Shop.Tests.ControllersTests
 {
