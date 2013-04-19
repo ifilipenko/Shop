@@ -15,13 +15,13 @@ namespace Shop.Tests.ControllersTests
     public class ProductControllerTests
     {
         private ProductController _productController;
-        private IProductService _productService;
+        private IProductRepository _productRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _productService = Substitute.For<IProductService>();
-            _productController = new ProductController(_productService);
+            _productRepository = Substitute.For<IProductRepository>();
+            _productController = new ProductController(_productRepository);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace Shop.Tests.ControllersTests
         [Test]
         public void Edit_should_show_product_with_given_id()
         {
-            _productService.FindById(1).Returns(new Product());
+            _productRepository.FindById(1).Returns(new Product());
 
             var actionResult = _productController.Edit(1);
 
@@ -48,7 +48,7 @@ namespace Shop.Tests.ControllersTests
         [Test]
         public void Edit_should_return_not_found_when_product_with_given_id_is_not_exists()
         {
-            _productService.FindById(1).Returns((Product) null);
+            _productRepository.FindById(1).Returns((Product) null);
 
             var actionResult = _productController.Edit(1);
 
@@ -58,7 +58,7 @@ namespace Shop.Tests.ControllersTests
         [Test]
         public void Edit_should_show_edit_product_view()
         {
-            _productService.FindById(1).Returns(new Product());
+            _productRepository.FindById(1).Returns(new Product());
 
             var actionResult = _productController.Edit(1);
 
@@ -72,14 +72,14 @@ namespace Shop.Tests.ControllersTests
         {
             _productController.Save(new EditProduct {Id = id});
 
-            _productService.Received(1).SaveProduct(Arg.Is<ProductSaveCommand>(x => x.Id == id));
+            _productRepository.Received(1).Save(Arg.Is<ProductSaveCommand>(x => x.Id == id));
         }
 
         [TestCase(0, 1)]
         [TestCase(1, 1)]
         public void Save_should_redirect_to_edit_when_save_exists_product(int id, int returnedId)
         {
-            _productService.SaveProduct(Arg.Any<ProductSaveCommand>()).Returns(returnedId);
+            _productRepository.Save(Arg.Any<ProductSaveCommand>()).Returns(returnedId);
 
             var actionResult = _productController.Save(new EditProduct { Id = id });
 
@@ -118,7 +118,7 @@ namespace Shop.Tests.ControllersTests
         [TestCase(1)]
         public void Save_should_show_error_message_when_product_saving_failed(int id)
         {
-            _productService.WhenForAnyArgs(x => x.SaveProduct(null))
+            _productRepository.WhenForAnyArgs(x => x.Save(null))
                            .Do(x => { throw new Exception("Some error"); });
             var model = new EditProduct {Id = id};
 

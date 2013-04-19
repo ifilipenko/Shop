@@ -8,11 +8,11 @@ namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductService _productService;
+        private readonly IProductRepository _productRepository;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductRepository productRepository)
         {
-            _productService = productService;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var product = _productService.FindById(id);
+            var product = _productRepository.FindById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace Shop.Controllers
                 if (ModelState.IsValid)
                 {
                     TempData["notice"] = model.IsEditMode ? "Товар успешно изменен" : "Товар успешно создан";
-                    var id = _productService.SaveProduct(new ProductSaveCommand
+                    var id = _productRepository.Save(new ProductSaveCommand
                     {
                         Id          = model.Id,
                         Name        = model.Name,
