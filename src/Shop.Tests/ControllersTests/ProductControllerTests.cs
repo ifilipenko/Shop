@@ -65,6 +65,31 @@ namespace Shop.Tests.ControllersTests
             actionResult.As<ViewResult>().ViewName.Should().Be("CreateOrEdit");
         }
 
+        [Test]
+        public void Edit_should_map_founded_product_to_view_model()
+        {
+            const string category = "cat 1";
+            const string name = "the name";
+            const string description = "fff";
+            const string vendorrr = "Vendorrr";
+            _productRepository.FindById(1).Returns(new Product
+            {
+                Id = 1,
+                Category = category,
+                Name = name,
+                Description = description,
+                Vendor = vendorrr
+            });
+
+            var actionResult = _productController.Edit(1);
+
+            var model = (EditProduct) actionResult.As<ViewResult>().Model;
+            model.Category.Should().Be(category);
+            model.Name.Should().Be(name);
+            model.Description.Should().Be(description);
+            model.Description.Should().Be(vendorrr);
+        }
+
         [TestCase(0)]
         [TestCase(1)]
         public void Save_should_save_product(int id)

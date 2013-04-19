@@ -33,11 +33,11 @@ namespace Shop.Controllers
             ViewBag.notice = TempData["notice"];
             var model = new EditProduct
                 {
-                    Id = id,
-                    Name = "Product " + id,
-                    Category = "Category " + id,
-                    Description = "Description " + id,
-                    Vendor = "Vendor " + id
+                    Id          = id,
+                    Name        = product.Name,
+                    Category    = product.Category,
+                    Description = product.Description,
+                    Vendor      = product.Vendor
                 };
             return View("CreateOrEdit", model);
         }
