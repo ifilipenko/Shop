@@ -1,45 +1,42 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Linq;
 using Shop.Domain.Model;
 
 namespace Shop.Domain.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IUnitOfWork<ProductModelContext> _unitOfWork;
+        private readonly IProductModelContext _dbContext;
 
-        public ProductRepository(IUnitOfWork<ProductModelContext> unitOfWork)
+        public ProductRepository(IProductModelContext dbContext)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = dbContext;
         }
 
         public Product FindById(int id)
         {
-            return _unitOfWork.DbContext.Products.Find(id);
+            return _dbContext.Products.Find(id);
         }
 
         public void Save(Product product)
         {
             if (product.Id == 0)
             {
-                _unitOfWork.DbContext.Products.Add(product);
+                _dbContext.Products.Add(product);
             }
             else
             {
-                _unitOfWork.DbContext.Entry(product).State = EntityState.Modified;
+                _dbContext.MarkAsUpdated(product);
             }
-            _unitOfWork.SubmitChanges();
         }
 
         public IQueryable<Product> GetAll()
         {
-            return _unitOfWork.DbContext.Products.OrderBy(n => n.Id);
+            return _dbContext.Products.OrderBy(n => n.Id);
         }
 
         public void Delete(Product product)
         {
-            _unitOfWork.DbContext.Products.Remove(product);
+            _dbContext.Products.Remove(product);
         }
     }
 }

@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PagedList;
-using Shop.Domain;
 using Shop.Domain.Model;
 using Shop.Domain.Repositories;
+using Shop.EntityFramework;
 using Shop.Models;
 
 namespace Shop.Controllers
 {
-    public class ProductController : EntityFrameworkController<ProductModelContext>
+    public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
-        private readonly IUnitOfWorkScope<ProductModelContext> _scope;
+        private readonly IUnitOfWorkScope _unitOfWorkScope;
 
-        public ProductController(IProductRepository productRepository, IUnitOfWorkScope<ProductModelContext> scope)
-            : base(scope)
+        public ProductController(IProductRepository productRepository, IUnitOfWorkScope unitOfWorkScope)
         {
             _productRepository = productRepository;
-            _scope = scope;
+            _unitOfWorkScope = unitOfWorkScope;
         }
 
         public ActionResult Index(int? page)
@@ -69,6 +67,7 @@ namespace Shop.Controllers
                             Vendor = model.Vendor
                         };
                     _productRepository.Save(product);
+                    _unitOfWorkScope.Get().SubmitChanges();
 
                     TempData["notice"] = model.IsEdit ? "Товар успешно изменен" : "Товар успешно добавлен";
                     return RedirectToAction("Edit", new {id = product.Id});

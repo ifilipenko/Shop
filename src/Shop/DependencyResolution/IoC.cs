@@ -17,12 +17,11 @@
 
 
 using System.Configuration;
-using Shop.Domain;
-using Shop.Domain.Model;
 using Shop.Domain.Repositories;
 using Shop.Domain.Settings;
 using Shop.Services.Infrastructure;
 using StructureMap;
+
 namespace Shop.DependencyResolution {
     public static class IoC
     {
@@ -37,6 +36,7 @@ namespace Shop.DependencyResolution {
                             scan.TheCallingAssembly();
                             scan.WithDefaultConventions();
                         });
+
                     x.For<RepositorySettings>()
                      .Singleton()
                      .Use(() =>
@@ -44,13 +44,8 @@ namespace Shop.DependencyResolution {
                              var connectionString = ConfigurationManager.ConnectionStrings["ShopDB"].ConnectionString;
                              return new RepositorySettings(connectionString);
                          });
-
-                    x.For(typeof (IUnitOfWorkScope<>))
-                     .HttpContextScoped()
-                     .Use(typeof (UnitOfWorkScope<>));
-
-                    x.For(typeof(IUnitOfWork<>))
-                     .Use(typeof(UnitOfWorkProxy<>));
+                    
+                    x.AddRegistry(new EntityFrameworkRegistration());
                 });
             return ObjectFactory.Container;
         }

@@ -1,5 +1,7 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Shop.EntityFramework;
+using Shop.Filters;
+using StructureMap;
 
 namespace Shop
 {
@@ -7,6 +9,7 @@ namespace Shop
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new UnitOfWorkScopeFilter(ObjectFactory.GetInstance<IUnitOfWorkScope>));
             filters.Add(new HandleErrorAttribute());
         }
     }

@@ -52,9 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityFrameworkUnitOfWork.cs" />
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="IUnitOfWorkScope.cs" />
     <Compile Include="Migrations\201304270542139_CreateProducts.cs" />
     <Compile Include="Migrations\201304270542139_CreateProducts.Designer.cs">
       <DependentUpon>201304270542139_CreateProducts.cs</DependentUpon>
@@ -71,8 +68,13 @@
     <Compile Include="Migrations\201304271216338_SetVendorFieldsConstraints.Designer.cs">
       <DependentUpon>201304271216338_SetVendorFieldsConstraints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304271938238_SomeChanges.cs" />
+    <Compile Include="Migrations\201304271938238_SomeChanges.Designer.cs">
+      <DependentUpon>201304271938238_SomeChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\IProductModelContext.cs" />
     <Compile Include="Model\Vendor.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductModelContext.cs" />
@@ -80,8 +82,6 @@
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Settings\RepositorySettings.cs" />
-    <Compile Include="UnitOfWorkProxy.cs" />
-    <Compile Include="UnitOfWorkScope.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -100,6 +100,15 @@
     <EmbeddedResource Include="Migrations\201304271216338_SetVendorFieldsConstraints.resx">
       <DependentUpon>201304271216338_SetVendorFieldsConstraints.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304271938238_SomeChanges.resx">
+      <DependentUpon>201304271938238_SomeChanges.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.EntityFramework\Shop.EntityFramework.csproj">
+      <Project>{630B82BB-ACA6-4DE9-BE21-0E8B31376FFB}</Project>
+      <Name>Shop.EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="LinFu.DynamicProxy">
+      <HintPath>..\packages\LinFu.DynamicProxy.OfficialRelease.1.0.5\lib\net\LinFu.DynamicProxy.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -150,13 +153,15 @@
     <Compile Include="Areas\Security\Models\RegisterModel.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\EntityFrameworkController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
+    <Compile Include="DependencyResolution\EntityFrameworkRegistration.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\LazyInitalizationProxy.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="Filters\UnitOfWorkScopeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,9 +221,9 @@
     <Content Include="Views\Vendors\Delete.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
-    <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_CreateOrEdit.cshtml" />
   </ItemGroup>
@@ -236,6 +241,10 @@
     <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj">
       <Project>{F7AFF660-E7F5-4C1D-BE3B-EE3D30F3B612}</Project>
       <Name>Shop.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shop.EntityFramework\Shop.EntityFramework.csproj">
+      <Project>{630B82BB-ACA6-4DE9-BE21-0E8B31376FFB}</Project>
+      <Name>Shop.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shop.Services.Infrastructure\Shop.Services.Infrastructure.csproj">
       <Project>{C8F072A9-D47B-432F-B1C1-2EC19EE95803}</Project>

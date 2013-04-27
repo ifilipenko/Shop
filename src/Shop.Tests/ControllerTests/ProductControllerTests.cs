@@ -7,6 +7,7 @@ using Shop.Controllers;
 using Shop.Domain;
 using Shop.Domain.Model;
 using Shop.Domain.Repositories;
+using Shop.EntityFramework;
 using Shop.Models;
 
 namespace Shop.Tests.ControllerTests
@@ -21,7 +22,7 @@ namespace Shop.Tests.ControllerTests
         public void SetUp()
         {
             _productRepository = Substitute.For<IProductRepository>();
-            _productController = new ProductController(_productRepository, Substitute.For<IUnitOfWorkScope<ProductModelContext>>());
+            _productController = new ProductController(_productRepository, Substitute.For<IUnitOfWorkScope>());
         }
         
         [Test]
