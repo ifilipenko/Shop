@@ -1,35 +1,19 @@
 ﻿using System;
-using System.Security.Authentication;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Shop.Areas.Security.Models;
-using Shop.Services.Security;
 
 namespace Shop.Areas.Security.Controllers
 {
     public class LoginController : Controller
     {
-        private const bool RememberMeByDefault = true;
-        private readonly IAuthenticationService _authenticationService;
-
-        public LoginController(IAuthenticationService authenticationService)
-        {
-            _authenticationService = authenticationService;
-        }
-
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult LogOn()
         {
-            return View(new LogOnModel
-            {
-                RememberMe = RememberMeByDefault
-            });
-        }
-
-        [HttpGet]
-        public ActionResult CompactLogin()
-        {
-            return View("_CompactLogin");
+            return View();
         }
 
         [HttpPost]
@@ -37,25 +21,18 @@ namespace Shop.Areas.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _authenticationService.SignIn(model.Username, model.Password, model.RememberMe);
-                    return RedirectToAction("Index", "Home", new { area = "" });
-                }
-                catch (AuthenticationException ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
+                FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
+                return RedirectToAction("Index", "Home", new {area = ""});
             }
 
-            return View("Login", model);
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return RedirectToAction("Index", "Home", new {area = ""});
         }
     }
 }

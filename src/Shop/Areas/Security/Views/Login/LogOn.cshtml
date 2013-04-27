@@ -1,0 +1,36 @@
+﻿@model Shop.Areas.Security.Models.LogOnModel
+@{
+    ViewBag.Title = "Shop - вход";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jqueryval")
+}
+<h2>Вход</h2>
+
+@using (Html.BeginForm("LogOn", "Login", new {area = "Security"}, FormMethod.Post))
+{
+    <fieldset>
+        <legend>Введите имя пользователя и пароль</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username)
+                @Html.ValidationMessageFor(m => m.Username)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li class="checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+            </li>
+            <li>
+                <input type="submit" class="btn btn-large btn-primary" value="Вход" />
+            </li>
+        </ul>
+    </fieldset>
+}

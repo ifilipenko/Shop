@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Areas.Security.Models
 {
     public class LogOnModel
     {
-        [Required, Display(Name = "Имя пользователя")]
+        [Required]
+        [DisplayName("Имя пользователя")]
         public string Username { get; set; }
 
         [Required]
-        [Display(Name = "Пароль")]
+        [DisplayName("Пароль")]
         public string Password { get; set; }
 
-        [Required]
-        [Display(Name = "Запомнить меня?")]
+        [DisplayName("Запомнить меня")]
         public bool RememberMe { get; set; }
     }
 }

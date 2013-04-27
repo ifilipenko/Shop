@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using Shop.Areas.Security.Models;
-using Shop.Services.Security;
+using Shop.Services.Infrastructure;
 
 namespace Shop.Areas.Security.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAuthenticationService authenticationService)
         {
-            _accountService = accountService;
+            _authenticationService = authenticationService;
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
@@ -30,7 +27,7 @@ namespace Shop.Areas.Security.Controllers
             {
                 try
                 {
-                    _accountService.RegisterNewUser(model.UserName, model.Password);
+                    _authenticationService.CreateUser(model.Username, model.Password);
                     return RedirectToAction("Index", "Home", new {area = ""});
                 }
                 catch (MembershipCreateUserException ex)

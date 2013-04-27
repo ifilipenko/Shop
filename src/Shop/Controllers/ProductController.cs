@@ -1,21 +1,33 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
+using PagedList;
+using Shop.Domain;
+using Shop.Domain.Model;
+using Shop.Domain.Repositories;
 using Shop.Models;
-using Shop.Services.Domain;
-using Shop.Services.Domain.Model;
 
 namespace Shop.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : EntityFrameworkController<ProductModelContext>
     {
         private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWorkScope<ProductModelContext> _scope;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, IUnitOfWorkScope<ProductModelContext> scope)
+            : base(scope)
         {
             _productRepository = productRepository;
+            _scope = scope;
         }
 
-        [HttpGet]
+        public ActionResult Index(int? page)
+        {
+            var products = _productRepository.GetAll().ToPagedList(page ?? 1, 3);
+            return View(products);
+        }
+
         public ActionResult Create()
         {
             return View("CreateOrEdit", new EditProduct());
@@ -27,19 +39,18 @@ namespace Shop.Controllers
             var product = _productRepository.FindById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return HttpNotFound("Товар не найден");
             }
 
             ViewBag.notice = TempData["notice"];
-            var model = new EditProduct
-                {
-                    Id          = id,
-                    Name        = product.Name,
-                    Category    = product.Category,
-                    Description = product.Description,
-                    Vendor      = product.Vendor
-                };
-            return View("CreateOrEdit", model);
+            return View("CreateOrEdit", new EditProduct
+            {
+                Id          = id,
+                Name        = product.Name,
+                Category    = product.Category,
+                Description = product.Description,
+                Vendor      = product.Vendor
+            });
         }
 
         [HttpPost]
@@ -49,7 +60,6 @@ namespace Shop.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    TempData["notice"] = model.IsEditMode ? "Товар успешно изменен" : "Товар успешно создан";
                     var product = new Product
                         {
                             Id = model.Id,
@@ -59,15 +69,28 @@ namespace Shop.Controllers
                             Vendor = model.Vendor
                         };
                     _productRepository.Save(product);
-                    return RedirectToAction("Edit", "Product", new {id = product.Id});
+
+                    TempData["notice"] = model.IsEdit ? "Товар успешно изменен" : "Товар успешно добавлен";
+                    return RedirectToAction("Edit", new {id = product.Id});
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
-
             return View("CreateOrEdit", model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var product = _productRepository.FindById(id);
+            if (product == null)
+                return HttpNotFound("Товар не найден");
+
+            _productRepository.Delete(product);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

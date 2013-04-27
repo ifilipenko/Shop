@@ -5,23 +5,20 @@ namespace Shop.Models
 {
     public class EditProduct
     {
-        public bool IsEditMode
+        public bool IsEdit
         {
             get { return Id != 0; }
         }
 
         public int Id { get; set; }
-
-        [DisplayName("Наименование"), Required]
+        [Required, MinLength(3), DisplayName("Наименование")]
         public string Name { get; set; }
-
-        [DisplayName("Категория"), Required]
+        [Required, DisplayName("Категория")]
         public string Category { get; set; }
-
-        [DisplayName("Производитель"), Required]
+        [Required, DisplayName("Производитель")]
         public string Vendor { get; set; }
-
-        [DisplayName("Описание"), Required]
+        [DisplayName("Описание")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 }

@@ -16,24 +16,42 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-using Shop.Services.Domain;
-using Shop.Services.Security;
+using System.Configuration;
+using Shop.Domain;
+using Shop.Domain.Model;
+using Shop.Domain.Repositories;
+using Shop.Domain.Settings;
+using Shop.Services.Infrastructure;
 using StructureMap;
 namespace Shop.DependencyResolution {
-    public static class IoC {
-        public static IContainer Initialize() {
+    public static class IoC
+    {
+        public static IContainer Initialize()
+        {
             ObjectFactory.Initialize(x =>
+                {
+                    x.Scan(scan =>
                         {
-                            x.Scan(scan =>
-                                    {
-                                        scan.TheCallingAssembly();
-                                        scan.AssemblyContainingType<SecurityServicesRegistry>();
-                                        scan.AssemblyContainingType<DomainServicesRegistry>();
-
-                                        scan.LookForRegistries();
-                                    });
-            //                x.For<IExample>().Use<Example>();
+                            scan.AssemblyContainingType<IAuthenticationService>();
+                            scan.AssemblyContainingType<IProductRepository>();
+                            scan.TheCallingAssembly();
+                            scan.WithDefaultConventions();
                         });
+                    x.For<RepositorySettings>()
+                     .Singleton()
+                     .Use(() =>
+                         {
+                             var connectionString = ConfigurationManager.ConnectionStrings["ShopDB"].ConnectionString;
+                             return new RepositorySettings(connectionString);
+                         });
+
+                    x.For(typeof (IUnitOfWorkScope<>))
+                     .HttpContextScoped()
+                     .Use(typeof (UnitOfWorkScope<>));
+
+                    x.For(typeof(IUnitOfWork<>))
+                     .Use(typeof(UnitOfWorkProxy<>));
+                });
             return ObjectFactory.Container;
         }
     }

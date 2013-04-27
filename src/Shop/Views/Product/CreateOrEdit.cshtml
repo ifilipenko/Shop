@@ -1,51 +1,59 @@
 ﻿@model Shop.Models.EditProduct
 
 @{
-    ViewBag.Title = Model.IsEditMode ? "Редактирование товара" : "Новый товар";
+    ViewBag.Title = Model.IsEdit ? "Редакирование товара" : "Добавление товара";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@if (!string.IsNullOrWhiteSpace(ViewBag.notice as string)) {
-    <div class="alert">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @ViewBag.notice!
+@if (!string.IsNullOrWhiteSpace(ViewBag.notice)) {
+    <div class="alert alert-success">
+        <button type="button" class="close" 
+                data-dismiss="alert">&times;</button>
+        @ViewBag.notice
     </div>
 }
 
-@using (Html.BeginForm("Save", "Product", new { area = "" }, FormMethod.Post)) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Введите данные товара</legend>
-        
-        @Html.HiddenFor(m => m.Id)
-
+@using (Html.BeginForm("Save", "Product", new {area = ""}, FormMethod.Post, new {@class="form-horizontal"})) {
+    @Html.HiddenFor(m => m.Id)
+    <div class="well">
         <ul class="unstyled">
-            <li>
-                @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
+            <li class="control-group">
+                @Html.LabelFor(m => m.Name, new {@class="control-label"})
+                <div class="controls">
+                    @Html.EditorFor(m => m.Name)
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </li>
+            <li class="control-group">
+                @Html.LabelFor(m => m.Category, new {@class="control-label"})
+                <div class="controls">
+                    @Html.EditorFor(m => m.Category)
+                    @Html.ValidationMessageFor(m => m.Category)
+                </div>
+            </li>
+            <li class="control-group">
+                @Html.LabelFor(m => m.Vendor, new {@class="control-label"})
+                <div class="controls">
+                    @Html.EditorFor(m => m.Vendor)
+                    @Html.ValidationMessageFor(m => m.Vendor)
+                </div>
+            </li>
+            <li class="control-group">
+                @Html.LabelFor(m => m.Description, new {@class="control-label"})
+                <div class="controls">
+                    @Html.EditorFor(m => m.Description)
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
             </li>
             <li>
-                @Html.LabelFor(m => m.Category)
-                @Html.TextBoxFor(m => m.Category)
-                @Html.ValidationMessageFor(m => m.Category)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Vendor)
-                @Html.TextBoxFor(m => m.Vendor)
-                @Html.ValidationMessageFor(m => m.Vendor)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Description)
-                @Html.TextAreaFor(m => m.Description)
-                @Html.ValidationMessageFor(m => m.Description)
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="icon-ok"></i> Сохранить
+                    </button>
+                </div>
             </li>
         </ul>
-
-        <button type="submit" class="btn btn-primary">
-            <i class="icon-ok"></i> Сохранить
-        </button>
-    </fieldset>
+    </div>
 }

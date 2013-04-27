@@ -8,14 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     @Styles.Render("~/Content/css")
-    @{ Html.RenderPartial("_html5shiv"); }
 </head>
 <body>
     <div class="container">
         @RenderBody()
-    </div> <!-- /container -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", false)
+        @Scripts.Render("~/Scripts/jquery")
+        @Scripts.Render("~/Scripts/bootstrap")
+        @RenderSection("scripts", false)
+    </div>
 </body>
 </html>

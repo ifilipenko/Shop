@@ -7,17 +7,17 @@
     <title>@ViewBag.Title</title>
     <meta name="description" content="">
     <meta name="author" content="">
+    
     @Styles.Render("~/Content/css")
-    @{ Html.RenderPartial("_html5shiv"); }
 </head>
 <body>
     @{ Html.RenderPartial("_Menu"); }
+    
     <div class="container">
         @RenderBody()
-    </div> <!-- /container -->
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", false)
+        @Scripts.Render("~/Scripts/jquery")
+        @Scripts.Render("~/Scripts/bootstrap")
+        @RenderSection("Scripts", false)
+    </div>
 </body>
 </html>

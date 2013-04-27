@@ -11,7 +11,7 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active">
-                        @Html.ActionLink("Home", "Index", "Home")
+                        @Html.ActionLink("Главная страница", "Index", "Home")
                     </li>
                     <li>
                         <a href="#about">About</a>
@@ -20,8 +20,8 @@
                         <a href="#contact">Contact</a>
                     </li>
                 </ul>
-
-                @{ Html.RenderPartial("~/Areas/Security/Views/Login/_CompactLogin.cshtml", new ViewDataDictionary()); }
+                
+                @{ Html.RenderPartial("~/Areas/Security/Views/Shared/_CompactLogin.cshtml", new ViewDataDictionary()); }
             </div><!--/.nav-collapse -->
         </div>
     </div>

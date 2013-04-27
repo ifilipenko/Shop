@@ -1,0 +1,83 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<Shop.Domain.Model.Product>
+
+@{
+    ViewBag.Title = "Список товаров";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create")">
+        <i class="icon-plus"></i> Добавить товар
+    </a>
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th style="width: 25px">№</th>
+            <th>@Html.DisplayNameFor(m=>m.Name)</th>
+            <th>@Html.DisplayNameFor(m=>m.Category)</th>
+            <th>@Html.DisplayNameFor(m=>m.Vendor)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var number = ((IPagedList)Model).FirstItemOnPage;
+            foreach (var product in Model)
+            {
+                var isEmptyDescription = string.IsNullOrWhiteSpace(product.Description);
+                var rows = isEmptyDescription ? 1 : 2;
+                <tr>
+                    <td rowspan="@rows">@(number++)</td>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>@product.Vendor</td>
+                    <td rowspan="@rows">
+                        <a class="btn btn-success" 
+                           href="@Url.Action("Edit", new {id = product.Id})" 
+                           title="Изменить товар">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        <a class="btn btn-danger delete-button" data-id="@product.Id"
+                           title="Удалить товар">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                if (!isEmptyDescription)
+                {
+                    <tr>
+                        <td colspan="3">@product.Description</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $(".delete-button").click(function() {
+                if (confirm("Удалить товар?")) {
+                    var id = $(this).attr("data-id");
+                    $.post("@Url.Action("Delete")", { id: id }, function () {
+                        location.reload();
+                    })
+                    .error(function (xhr, status, error) {
+                        alert(error);
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
+}
