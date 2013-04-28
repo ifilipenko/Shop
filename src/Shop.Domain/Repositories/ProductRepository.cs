@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 using Shop.Domain.Model;
 
 namespace Shop.Domain.Repositories
@@ -29,9 +32,14 @@ namespace Shop.Domain.Repositories
             }
         }
 
-        public IQueryable<Product> GetAll()
+        public IQueryable<Product> GetAll(params Expression<Func<Product, object>>[] includeProperties)
         {
-            return _dbContext.Products.OrderBy(n => n.Id);
+            IQueryable<Product> products = _dbContext.Products;
+            foreach (var property in includeProperties)
+            {
+                products = products.Include(property);
+            }
+            return products.OrderBy(n => n.Id);
         }
 
         public void Delete(Product product)

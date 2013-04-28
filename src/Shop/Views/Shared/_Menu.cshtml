@@ -13,9 +13,12 @@
                     <li class="active">
                         @Html.ActionLink("Главная страница", "Index", "Home")
                     </li>
-                    <li>
-                        <a href="#about">About</a>
-                    </li>
+                    @if (User.IsInRole("Администратор"))
+                    {
+                        <li>
+                            @Html.ActionLink("Список товаров", "Index", "Product")
+                        </li>
+                    }
                     <li>
                         <a href="#contact">Contact</a>
                     </li>

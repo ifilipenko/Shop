@@ -11,6 +11,8 @@
 
 @using (Html.BeginForm("LogOn", "Login", new {area = "Security"}, FormMethod.Post))
 {
+    @Html.ValidationSummary(true)
+    
     <fieldset>
         <legend>Введите имя пользователя и пароль</legend>
         <ul class="unstyled">

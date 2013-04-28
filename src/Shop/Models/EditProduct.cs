@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Shop.Domain.Model;
 
 namespace Shop.Models
 {
@@ -13,12 +15,16 @@ namespace Shop.Models
         public int Id { get; set; }
         [Required, MinLength(3), DisplayName("Наименование")]
         public string Name { get; set; }
-        [Required, DisplayName("Категория")]
-        public string Category { get; set; }
-        [Required, DisplayName("Производитель")]
-        public string Vendor { get; set; }
         [DisplayName("Описание")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        [Required, DisplayName("Категория")]
+        public int? CategoryId { get; set; }
+        [Required, DisplayName("Производитель")]
+        public int? VendorId { get; set; }
+
+        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Vendor> Vendors { get; set; }
     }
 }

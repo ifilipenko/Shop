@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Shop.Domain.Model;
+using Shop.Models;
 
 namespace Shop.Controllers
 {
@@ -30,16 +31,16 @@ namespace Shop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Vendor vendor)
+        public ActionResult Create(VendorViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Vendors.Add(vendor);
+                db.Vendors.Add(model.MapToDomainModel());
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(vendor);
+            return View(model);
         }
 
         //
@@ -52,7 +53,7 @@ namespace Shop.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vendor);
+            return View(vendor.MapToViewModel());
         }
 
         //
@@ -60,11 +61,11 @@ namespace Shop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Vendor vendor)
+        public ActionResult Edit(VendorViewModel vendor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vendor).State = EntityState.Modified;
+                db.Entry(vendor.MapToDomainModel()).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

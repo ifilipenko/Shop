@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Web;
 using Shop.Domain.Model;
 
-namespace Shop.Models
+namespace Shop.Domain.Models
 { 
     public class CategoryRepository : ICategoryRepository
     {

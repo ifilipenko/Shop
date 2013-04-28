@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
 using Shop.Areas.Security.Models;
+using Shop.Services.Infrastructure;
 
 namespace Shop.Areas.Security.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IAuthenticationService _authenticationService;
+
+        public LoginController(IAuthenticationService authenticationService)
+        {
+            _authenticationService = authenticationService;
+        }
+
         [HttpGet]
         public ActionResult LogOn()
         {
@@ -21,8 +26,15 @@ namespace Shop.Areas.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
-                return RedirectToAction("Index", "Home", new {area = ""});
+                try
+                {
+                    _authenticationService.Authenticate(model.Username, model.Password, model.RememberMe);
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                catch (AuthenticationException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
 
             return View(model);

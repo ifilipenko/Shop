@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using PagedList;
 using Shop.Domain.Model;
+using Shop.Domain.Models;
 using Shop.Domain.Repositories;
 using Shop.EntityFramework;
 using Shop.Models;
@@ -12,23 +14,35 @@ namespace Shop.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductModelContext _productModelContext;
         private readonly IUnitOfWorkScope _unitOfWorkScope;
 
-        public ProductController(IProductRepository productRepository, IUnitOfWorkScope unitOfWorkScope)
+        public ProductController(IProductRepository productRepository, 
+            ICategoryRepository categoryRepository,
+            IProductModelContext productModelContext,
+            IUnitOfWorkScope unitOfWorkScope)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _productModelContext = productModelContext;
             _unitOfWorkScope = unitOfWorkScope;
         }
 
         public ActionResult Index(int? page)
         {
-            var products = _productRepository.GetAll().ToPagedList(page ?? 1, 3);
+            var products = _productRepository.GetAll(x => x.Category, x => x.Vendor)
+                                             .ToPagedList(page ?? 1, 3);
             return View(products);
         }
 
         public ActionResult Create()
         {
-            return View("CreateOrEdit", new EditProduct());
+            return View("CreateOrEdit", new EditProduct
+            {
+                Categories = _categoryRepository.All.ToList(),
+                Vendors = _productModelContext.Vendors.ToList()
+            });
         }
 
         [HttpGet]
@@ -45,9 +59,11 @@ namespace Shop.Controllers
             {
                 Id          = id,
                 Name        = product.Name,
-                Category    = product.Category,
+                CategoryId  = product.Category.Id,
                 Description = product.Description,
-                Vendor      = product.Vendor
+                VendorId    = product.Vendor.Id,
+                Categories  = _categoryRepository.All.ToList(),
+                Vendors     = _productModelContext.Vendors.ToList()
             });
         }
 
@@ -58,13 +74,16 @@ namespace Shop.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var vendor   = _productModelContext.Vendors.FirstOrDefault(x => x.Id == model.VendorId);
+                    var category = _categoryRepository.Find(model.CategoryId ?? 0);
+                    
                     var product = new Product
                         {
                             Id = model.Id,
                             Name = model.Name,
-                            Category = model.Category,
+                            Category = category,
                             Description = model.Description,
-                            Vendor = model.Vendor
+                            Vendor = vendor
                         };
                     _productRepository.Save(product);
                     _unitOfWorkScope.Get().SubmitChanges();
@@ -90,6 +109,12 @@ namespace Shop.Controllers
             _productRepository.Delete(product);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _categoryRepository.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

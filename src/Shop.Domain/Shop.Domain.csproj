@@ -72,7 +72,16 @@
     <Compile Include="Migrations\201304271938238_SomeChanges.Designer.cs">
       <DependentUpon>201304271938238_SomeChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304280658044_CreateCategory.cs" />
+    <Compile Include="Migrations\201304280658044_CreateCategory.Designer.cs">
+      <DependentUpon>201304280658044_CreateCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304280715168_AddReferencesToProducts.cs" />
+    <Compile Include="Migrations\201304280715168_AddReferencesToProducts.Designer.cs">
+      <DependentUpon>201304280715168_AddReferencesToProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CategoryRepository.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\IProductModelContext.cs" />
     <Compile Include="Model\Vendor.cs" />
@@ -102,6 +111,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304271938238_SomeChanges.resx">
       <DependentUpon>201304271938238_SomeChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304280658044_CreateCategory.resx">
+      <DependentUpon>201304280658044_CreateCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304280715168_AddReferencesToProducts.resx">
+      <DependentUpon>201304280715168_AddReferencesToProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

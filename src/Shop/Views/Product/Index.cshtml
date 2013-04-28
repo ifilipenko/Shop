@@ -20,8 +20,8 @@
         <tr>
             <th style="width: 25px">№</th>
             <th>@Html.DisplayNameFor(m=>m.Name)</th>
-            <th>@Html.DisplayNameFor(m=>m.Category)</th>
-            <th>@Html.DisplayNameFor(m=>m.Vendor)</th>
+            <th>Категория</th>
+            <th>Производитель</th>
             <th></th>
         </tr>
     </thead>
@@ -35,8 +35,8 @@
                 <tr>
                     <td rowspan="@rows">@(number++)</td>
                     <td>@product.Name</td>
-                    <td>@product.Category</td>
-                    <td>@product.Vendor</td>
+                    <td>@(product.Category == null ? "" : product.Category.Name)</td>
+                    <td>@(product.Vendor == null ? "" : product.Vendor.Name)</td>
                     <td rowspan="@rows">
                         <a class="btn btn-success" 
                            href="@Url.Action("Edit", new {id = product.Id})" 

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Shop.Domain.Model;
-using Shop.Models;
+using Shop.Domain.Models;
 
 namespace Shop.Controllers
 {   
@@ -12,12 +8,7 @@ namespace Shop.Controllers
     {
 		private readonly ICategoryRepository categoryRepository;
 
-		// If you are using Dependency Injection, you can delete the following constructor
-        public CategoryController() : this(new CategoryRepository())
-        {
-        }
-
-        public CategoryController(ICategoryRepository categoryRepository)
+		public CategoryController(ICategoryRepository categoryRepository)
         {
 			this.categoryRepository = categoryRepository;
         }

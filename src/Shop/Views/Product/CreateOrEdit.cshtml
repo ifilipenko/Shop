@@ -27,17 +27,27 @@
                 </div>
             </li>
             <li class="control-group">
-                @Html.LabelFor(m => m.Category, new {@class="control-label"})
+                @Html.LabelFor(m => m.CategoryId, new {@class="control-label"})
                 <div class="controls">
-                    @Html.EditorFor(m => m.Category)
-                    @Html.ValidationMessageFor(m => m.Category)
+                    @Html.DropDownListFor(x => x.CategoryId, Model.Categories.Select(x => new SelectListItem
+                        {
+                            Selected = x.Id == Model.CategoryId,
+                            Text     = x.Name,
+                            Value    = x.Id.ToString()
+                        }))
+                    @Html.ValidationMessageFor(m => m.CategoryId)
                 </div>
             </li>
             <li class="control-group">
-                @Html.LabelFor(m => m.Vendor, new {@class="control-label"})
+                @Html.LabelFor(m => m.VendorId, new {@class="control-label"})
                 <div class="controls">
-                    @Html.EditorFor(m => m.Vendor)
-                    @Html.ValidationMessageFor(m => m.Vendor)
+                    @Html.DropDownListFor(x => x.VendorId, Model.Vendors.Select(x => new SelectListItem
+                        {
+                            Selected = x.Id == Model.VendorId,
+                            Text     = x.Name,
+                            Value    = x.Id.ToString()
+                        }))
+                    @Html.ValidationMessageFor(m => m.VendorId)
                 </div>
             </li>
             <li class="control-group">
